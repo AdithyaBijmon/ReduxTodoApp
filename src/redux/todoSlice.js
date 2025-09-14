@@ -18,6 +18,7 @@ const todoSlice = createSlice({
 
             state.push(newTodo)
         }
+      
     }
 })
 
