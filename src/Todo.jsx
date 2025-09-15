@@ -1,14 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
 function Todo() {
+
     const todos = useSelector(state => state.todo)
     
+    useEffect(()=>{
+        sessionStorage.getItem("AllTodos")
+    },[])
+
+    
+    
+    // console.log(getAllTodos)
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+
+    const handleRemoveTodo = ()=>{
+     sessionStorage.removeItem(todos.title)
+    }
 
     const listItemClasses = `list-group-item p-3 ${isChecked ? 'bg-success-subtle' : ''}`;
 
@@ -28,7 +40,7 @@ function Todo() {
                                         <input checked={isChecked} onChange={handleCheckboxChange} className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
                                         <label className="form-check-label ms-3" htmlFor="firstCheckbox">{todo?.title}</label>
                                     </div>
-                                    <button className='btn'><i className="fa-solid fa-trash text-danger fs-5"></i></button>
+                                    <button onClick={handleRemoveTodo} className='btn'><i className="fa-solid fa-trash text-danger fs-5"></i></button>
                                 </div>
                             </li>
                         ))
@@ -36,7 +48,7 @@ function Todo() {
                         <p>No todo!!!</p>
 
                 }
-              
+
             </ul>
 
         </div>
